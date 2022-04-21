@@ -329,4 +329,41 @@ public class FlutterWebviewPlugin implements FlutterPlugin, ActivityAware, Metho
         }
         return false;
     }
+
+    @Override
+    public void onAttachedToEngine(FlutterPluginBinding binding) {
+        channel = new MethodChannel(binding.getBinaryMessenger(), CHANNEL_NAME);
+        context = binding.getApplicationContext();
+
+        channel.setMethodCallHandler(this);
+
+        //final FlutterWebviewPlugin instance = new FlutterWebviewPlugin(registrar.activity(), registrar.activeContext());
+        //registrar.addActivityResultListener(instance);
+
+    }
+
+    @Override
+    public void onDetachedFromEngine(FlutterPluginBinding binding) {
+    }
+
+    @Override
+    public void onAttachedToActivity(ActivityPluginBinding binding) {
+        activity = binding.getActivity();
+        binding.addActivityResultListener(this);
+    }
+
+    @Override
+    public void onDetachedFromActivityForConfigChanges() {
+
+    }
+
+    @Override
+    public void onReattachedToActivityForConfigChanges(ActivityPluginBinding binding) {
+
+    }
+
+    @Override
+    public void onDetachedFromActivity() {
+
+    }
 }
